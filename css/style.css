@@ -1,4 +1,3 @@
-/* ===== RESET & BASE ===== */
 * {
   margin: 0;
   padding: 0;
@@ -57,13 +56,11 @@ button, input {
   outline: none;
 }
 
-/* ===== TYPOGRAPHY ===== */
 h1 { font-size: 2rem; font-weight: 700; }
 h2 { font-size: 1.5rem; font-weight: 600; }
 h3 { font-size: 1.2rem; font-weight: 600; }
 h4 { font-size: 1rem; font-weight: 600; }
 
-/* ===== LOGIN PAGE ===== */
 .login-page {
   display: flex;
   justify-content: center;
@@ -167,7 +164,6 @@ h4 { font-size: 1rem; font-weight: 600; }
   color: var(--text-white);
 }
 
-/* Auth Guard — hide page until authenticated */
 html:not(.auth-ready) .app-layout {
   opacity: 0;
   pointer-events: none;
@@ -177,7 +173,6 @@ html.auth-ready .app-layout {
   transition: opacity 0.2s;
 }
 
-/* Auth Messages */
 .auth-message {
   width: 100%;
   padding: 10px 16px;
@@ -198,7 +193,6 @@ html.auth-ready .app-layout {
   border: 1px solid rgba(0, 184, 148, 0.3);
 }
 
-/* Auth Links */
 .auth-links {
   margin-top: 16px;
   font-size: 0.88rem;
@@ -217,7 +211,6 @@ html.auth-ready .app-layout {
   color: var(--text-white);
 }
 
-/* Login button loader */
 .login-btn {
   position: relative;
 }
@@ -225,13 +218,11 @@ html.auth-ready .app-layout {
   font-size: 1.1rem;
 }
 
-/* ===== LAYOUT: SIDEBAR + MAIN ===== */
 .app-layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
   width: 240px;
   background: var(--primary);
@@ -306,7 +297,6 @@ html.auth-ready .app-layout {
   font-size: 1.1rem;
 }
 
-/* Main Content */
 .main-content {
   flex: 1;
   margin-left: 240px;
@@ -357,7 +347,6 @@ html.auth-ready .app-layout {
   padding: 32px;
 }
 
-/* Mobile menu toggle */
 .mobile-menu-toggle {
   display: none;
   background: none;
@@ -378,7 +367,6 @@ html.auth-ready .app-layout {
   z-index: 99;
 }
 
-/* ===== DASHBOARD ===== */
 .welcome-section {
   margin-bottom: 32px;
 }
@@ -393,7 +381,6 @@ html.auth-ready .app-layout {
   font-size: 0.95rem;
 }
 
-/* Search Bar */
 .search-bar {
   display: flex;
   align-items: center;
@@ -439,7 +426,6 @@ html.auth-ready .app-layout {
   background: #5a4bd6;
 }
 
-/* Section Headers */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -458,7 +444,6 @@ html.auth-ready .app-layout {
   cursor: pointer;
 }
 
-/* University Cards */
 .uni-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -522,7 +507,6 @@ html.auth-ready .app-layout {
   background: #5a4bd6;
 }
 
-/* Portfolio Section */
 .portfolio-section {
   background: var(--bg-card);
   border-radius: var(--border-radius);
@@ -612,7 +596,6 @@ html.auth-ready .app-layout {
   background: #5a4bd6;
 }
 
-/* ===== RESULTS PAGE ===== */
 .results-overview {
   margin-bottom: 32px;
 }
@@ -627,7 +610,6 @@ html.auth-ready .app-layout {
   font-size: 0.9rem;
 }
 
-/* Test Scores Table */
 .scores-section {
   background: var(--bg-card);
   border-radius: var(--border-radius);
@@ -726,7 +708,6 @@ html.auth-ready .app-layout {
   color: var(--text-white);
 }
 
-/* Achievements & Awards */
 .achievements-section {
   margin-bottom: 32px;
 }
@@ -811,7 +792,6 @@ html.auth-ready .app-layout {
   line-height: 1.4;
 }
 
-/* ===== BOTTOM NAV (MOBILE) ===== */
 .bottom-nav {
   display: none;
   position: fixed;
@@ -856,7 +836,6 @@ html.auth-ready .app-layout {
   color: var(--text-white);
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -945,7 +924,6 @@ html.auth-ready .app-layout {
   }
 }
 
-/* ===== UTILITY CLASSES ===== */
 .text-muted { color: var(--text-muted); }
 .text-accent { color: var(--accent-light); }
 .mb-8 { margin-bottom: 8px; }
@@ -953,7 +931,6 @@ html.auth-ready .app-layout {
 .mb-24 { margin-bottom: 24px; }
 .mb-32 { margin-bottom: 32px; }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -971,7 +948,6 @@ html.auth-ready .app-layout {
   background: var(--accent);
 }
 
-/* Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -981,7 +957,6 @@ html.auth-ready .app-layout {
   animation: fadeIn 0.4s ease forwards;
 }
 
-/* ===== INLINE PANELS ===== */
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1044,7 +1019,6 @@ html.auth-ready .app-layout {
   gap: 12px;
 }
 
-/* Type cards */
 .inline-type-cards {
   display: flex;
   flex-direction: column;
@@ -1111,7 +1085,6 @@ html.auth-ready .app-layout {
   transform: translateX(3px);
 }
 
-/* Inline form elements */
 .inline-label {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -1230,7 +1203,6 @@ html.auth-ready .app-layout {
   transform: translateY(-1px);
 }
 
-/* IELTS inline grid */
 .inline-ielts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1251,7 +1223,6 @@ html.auth-ready .app-layout {
   font-weight: 600;
 }
 
-/* Empty state */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -1261,7 +1232,6 @@ html.auth-ready .app-layout {
   text-align: center;
 }
 
-/* Achievement item with delete */
 .achievement-item .ach-delete {
   color: var(--text-muted);
   cursor: pointer;
@@ -1321,7 +1291,6 @@ html.auth-ready .app-layout {
   }
 }
 
-/* ===== TEST SCORE CARDS ===== */
 .scores-header {
   display: flex;
   justify-content: space-between;
@@ -1448,11 +1417,6 @@ html.auth-ready .app-layout {
   margin-right: 12px;
 }
 
-/* ======================== */
-/* Universities Page        */
-/* ======================== */
-
-/* Region Tabs */
 .region-tabs {
   display: flex;
   gap: 0;
@@ -1510,7 +1474,6 @@ html.auth-ready .app-layout {
   font-size: 1.4rem;
 }
 
-/* Region Content */
 .region-content {
   display: none;
 }
@@ -1519,7 +1482,6 @@ html.auth-ready .app-layout {
   display: block;
 }
 
-/* University Cards Grid */
 .uni-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1592,7 +1554,6 @@ html.auth-ready .app-layout {
   color: #a29bfe;
 }
 
-/* Country Grid */
 .country-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1631,7 +1592,6 @@ html.auth-ready .app-layout {
   line-height: 1.3;
 }
 
-/* Back to countries button */
 .back-to-countries {
   display: inline-flex;
   align-items: center;
@@ -1660,7 +1620,6 @@ html.auth-ready .app-layout {
   margin-bottom: 18px;
 }
 
-/* Responsive tweaks for universities */
 @media (max-width: 768px) {
   .region-tabs {
     border-radius: 12px;
@@ -1703,10 +1662,6 @@ html.auth-ready .app-layout {
     font-size: 0.75rem;
   }
 }
-
-/* ======================== */
-/* Housing Page             */
-/* ======================== */
 
 .housing-cards {
   display: grid;
@@ -1810,10 +1765,6 @@ html.auth-ready .app-layout {
     padding: 12px;
   }
 }
-
-/* ======================== */
-/* Part-Time Jobs Page      */
-/* ======================== */
 
 .job-cards {
   display: grid;
@@ -1923,7 +1874,6 @@ html.auth-ready .app-layout {
   }
 }
 
-/* ===== STUDENT SERVICES PAGE ===== */
 .svc-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -2024,7 +1974,6 @@ html.auth-ready .app-layout {
   }
 }
 
-/* ===== SETTINGS PAGE ===== */
 .settings-container {
   max-width: 640px;
   margin: 0 auto;
@@ -2075,7 +2024,6 @@ html.auth-ready .app-layout {
   margin: 0;
 }
 
-/* Language Options */
 .language-options {
   display: flex;
   flex-direction: column;
@@ -2141,7 +2089,6 @@ html.auth-ready .app-layout {
   opacity: 1;
 }
 
-/* Settings Rows */
 .settings-row {
   display: flex;
   align-items: center;
@@ -2161,7 +2108,6 @@ html.auth-ready .app-layout {
   font-weight: 600;
 }
 
-/* Toggle Switch */
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -2206,7 +2152,6 @@ html.auth-ready .app-layout {
   background: var(--text-white);
 }
 
-/* Logout Button */
 .settings-logout {
   display: flex;
   align-items: center;
@@ -2229,10 +2174,6 @@ html.auth-ready .app-layout {
   background: rgba(225, 112, 85, 0.22);
   border-color: var(--danger);
 }
-
-/* =============================================
-   AI Admission Chances Section
-   ============================================= */
 
 .ai-chances-section {
   background: var(--card-bg);
@@ -2280,7 +2221,6 @@ html.auth-ready .app-layout {
   display: none;
 }
 
-/* Loading */
 .ai-loading {
   display: flex;
   flex-direction: column;
@@ -2315,7 +2255,6 @@ html.auth-ready .app-layout {
   50% { opacity: 1; }
 }
 
-/* Error */
 .ai-error {
   display: flex;
   align-items: center;
@@ -2331,7 +2270,6 @@ html.auth-ready .app-layout {
 
 .ai-error.hidden { display: none; }
 
-/* Results */
 .ai-results { margin-top: 24px; }
 .ai-results.hidden { display: none; }
 
@@ -2390,7 +2328,6 @@ html.auth-ready .app-layout {
   line-height: 1.3;
 }
 
-/* Circular chance ring */
 .ai-uni-chance {
   flex-shrink: 0;
 }
@@ -2430,7 +2367,6 @@ html.auth-ready .app-layout {
   color: var(--text-main);
 }
 
-/* Powered by note */
 .ai-powered {
   display: flex;
   align-items: center;
@@ -2443,7 +2379,6 @@ html.auth-ready .app-layout {
   opacity: 0.7;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .ai-chances-section {
     padding: 20px 16px;
@@ -2477,10 +2412,6 @@ html.auth-ready .app-layout {
     font-size: 0.68rem;
   }
 }
-
-/* =============================================
-   ЕНТ Subject Selection
-   ============================================= */
 
 .ent-mandatory-subjects {
   display: flex;
@@ -2597,7 +2528,6 @@ html.auth-ready .app-layout {
   cursor: not-allowed;
 }
 
-/* ЕНТ selected combo display in score panel */
 .ent-selected-combo {
   display: flex;
   align-items: center;
@@ -2615,7 +2545,6 @@ html.auth-ready .app-layout {
   display: none;
 }
 
-/* ЕНТ combo info on score card */
 .ts-ent-combo {
   color: var(--accent) !important;
   font-size: 0.75rem !important;

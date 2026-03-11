@@ -1,4 +1,3 @@
-// ===== SIDEBAR TOGGLE (Mobile) =====
 document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.getElementById('menuToggle');
   const sidebar = document.getElementById('sidebar');
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== PORTFOLIO TABS =====
   const tabs = document.querySelectorAll('.portfolio-tab');
   tabs.forEach(tab => {
     tab.addEventListener('click', function () {
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ===== BOTTOM NAV ACTIVE STATE =====
   const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
   bottomNavItems.forEach(item => {
     item.addEventListener('click', function () {
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ===== SEARCH FUNCTIONALITY =====
   const searchInput = document.querySelector('.search-bar input');
   if (searchInput) {
     searchInput.addEventListener('input', function () {
@@ -47,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== SAVE BUTTON =====
   const saveBtn = document.querySelector('.save-btn');
   if (saveBtn) {
     saveBtn.addEventListener('click', function () {
@@ -60,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== UPLOAD BUTTONS =====
   const uploadBtns = document.querySelectorAll('.upload-btn');
   uploadBtns.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -79,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ===== INLINE ACHIEVEMENT PANELS =====
   const addBtn = document.getElementById('addAchievementBtn');
   const achievementsList = document.getElementById('achievementsList');
   const emptyState = document.getElementById('emptyState');
@@ -136,10 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
     achievementsList.appendChild(item);
   }
 
-  // "+ Add new achievement" button
   if (addBtn) addBtn.addEventListener('click', () => showPanel(panelChooseType));
 
-  // Type cards
   document.querySelectorAll('.inline-type-card').forEach(card => {
     card.addEventListener('click', function () {
       const type = this.dataset.type;
@@ -149,19 +140,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Close buttons
   ['closePanelType', 'closePanelGramota', 'closePanelEnt', 'closePanelIelts'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', () => { hideAllPanels(); resetForms(); });
   });
 
-  // Back buttons
   ['backFromGramota', 'backFromEnt', 'backFromIelts'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', () => showPanel(panelChooseType));
   });
 
-  // File upload
   document.addEventListener('change', function (e) {
     if (e.target && e.target.id === 'gramotaFile') {
       const label = document.getElementById('gramotaFileLabel');
@@ -173,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Submit Gramota
   const submitGramota = document.getElementById('submitGramota');
   if (submitGramota) {
     submitGramota.addEventListener('click', function () {
@@ -184,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Submit ENT
   const submitEnt = document.getElementById('submitEnt');
   if (submitEnt) {
     submitEnt.addEventListener('click', function () {
@@ -198,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Submit IELTS
   const submitIelts = document.getElementById('submitIelts');
   if (submitIelts) {
     submitIelts.addEventListener('click', function () {
@@ -214,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== RESULTS PAGE: TEST SCORES =====
   const addTestBtn = document.getElementById('addTestScoreBtn');
   const testScoresList = document.getElementById('testScoresList');
   const scoresEmptyState = document.getElementById('scoresEmptyState');
@@ -270,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const backFromScore = document.getElementById('backFromScore');
   if (backFromScore) backFromScore.addEventListener('click', () => {
     resetTestForm();
-    // If current test is ЕНТ, go back to subject selection
     if (currentTest && currentTest.name === 'ЕНТ') {
       showTestPanel(panelEntSubjects);
     } else {
@@ -278,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ЕНТ subject combo selection
   const entCombos = {
     'math-physics': 'Математика + Физика',
     'math-informatics': 'Математика + Информатика',
@@ -324,14 +306,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Test type cards
   document.querySelectorAll('#testTypeCards .inline-type-card').forEach(card => {
     card.addEventListener('click', function () {
       const testName = this.dataset.test;
       const max = parseFloat(this.dataset.max);
       const step = parseFloat(this.dataset.step);
 
-      // If ЕНТ, show subject selection first
       if (testName === 'ЕНТ') {
         selectedEntCombo = null;
         document.querySelectorAll('#entProfileCombos .ent-combo-card').forEach(c => c.classList.remove('selected'));
@@ -355,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Test file upload
   document.addEventListener('change', function (e) {
     if (e.target && e.target.id === 'testFile') {
       const label = document.getElementById('testFileLabel');
@@ -367,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Submit test score
   const submitTestScore = document.getElementById('submitTestScore');
   if (submitTestScore) {
     submitTestScore.addEventListener('click', function () {
@@ -424,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== FADE IN ANIMATION ON SCROLL =====
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -446,7 +423,6 @@ document.addEventListener('DOMContentLoaded', function () {
     observer.observe(el);
   });
 
-  // Trigger fade-in for visible elements immediately
   setTimeout(() => {
     document.querySelectorAll('.fade-in').forEach(el => {
       const rect = el.getBoundingClientRect();

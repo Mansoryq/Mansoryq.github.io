@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""UniMap Backend Server — Registration & Authentication"""
-
 import os
 import sqlite3
 import hashlib
@@ -12,7 +9,6 @@ from functools import wraps
 from flask import Flask, request, jsonify, send_from_directory, session
 from flask_cors import CORS
 
-# === Config ===
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'unimap.db')
 
@@ -20,14 +16,11 @@ app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 app.secret_key = secrets.token_hex(32)
 CORS(app, supports_credentials=True)
 
-
-# === Database ===
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
     return conn
-
 
 def init_db():
     conn = get_db()
@@ -39,8 +32,6 @@ def init_db():
             password_hash TEXT NOT NULL,
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
-    ''')
-    conn.execute('''
         CREATE TABLE IF NOT EXISTS sessions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
@@ -53,19 +44,15 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 def hash_password(password):
     salt = secrets.token_hex(16)
     hashed = hashlib.sha256((salt + password).encode()).hexdigest()
     return f"{salt}:{hashed}"
 
-
 def verify_password(password, stored_hash):
     salt, hashed = stored_hash.split(':')
     return hashlib.sha256((salt + password).encode()).hexdigest() == hashed
 
-
-# === Auth Helpers ===
 def create_session_token(user_id):
     token = secrets.token_hex(32)
     expires = datetime.now() + timedelta(days=7)
@@ -77,7 +64,6 @@ def create_session_token(user_id):
     conn.commit()
     conn.close()
     return token
-
 
 def get_user_by_token(token):
     if not token:
@@ -91,9 +77,6 @@ def get_user_by_token(token):
     conn.close()
     return dict(row) if row else None
 
-
-# === API Routes ===
-
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -101,7 +84,6 @@ def register():
     email = (data.get('email') or '').strip().lower()
     password = data.get('password') or ''
 
-    # Validation
     if not name or len(name) < 2:
         return jsonify({'error': 'Имя должно быть не менее 2 символов'}), 400
     if not email or '@' not in email:
@@ -132,7 +114,6 @@ def register():
         'user': {'id': user_id, 'name': name, 'email': email}
     }), 201
 
-
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -157,7 +138,6 @@ def login():
         'user': {'id': user['id'], 'name': user['name'], 'email': user['email']}
     })
 
-
 @app.route('/api/check-auth', methods=['GET'])
 def check_auth():
     auth_header = request.headers.get('Authorization', '')
@@ -167,7 +147,6 @@ def check_auth():
     if user:
         return jsonify({'authenticated': True, 'user': user})
     return jsonify({'authenticated': False}), 401
-
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
@@ -182,15 +161,11 @@ def logout():
 
     return jsonify({'success': True})
 
-
-# === AI Chances (Ollama) ===
-
 import urllib.request
 
 OLLAMA_URL = 'http://localhost:11434/api/generate'
 OLLAMA_MODEL = 'llama3.2:latest'
 
-# Load grant threshold data from 2025 PDF parsing
 GRANT_DATA_PATH = os.path.join(BASE_DIR, 'grant_data_2025.json')
 GRANT_DATA = {}
 if os.path.exists(GRANT_DATA_PATH):
@@ -198,7 +173,6 @@ if os.path.exists(GRANT_DATA_PATH):
         GRANT_DATA = json.load(f)
     print(f"Loaded grant data: {len(GRANT_DATA)} specialties")
 
-# Map ЕНТ subject combos to relevant specialty codes
 ENT_COMBO_SPECIALTIES = {
     'math-physics': [
         'B054', 'B055', 'B056', 'B009', 'B010', 'B062', 'B063', 'B064',
@@ -235,7 +209,6 @@ ENT_COMBO_SPECIALTIES = {
     ]
 }
 
-# Real university ЕНТ threshold scores (average passing scores)
 UNI_THRESHOLDS = [
     {'name': 'Назарбаев Университет (Nazarbayev University)', 'min': 120, 'max': 140, 'tier': 'top'},
     {'name': 'КазНУ им. аль-Фараби', 'min': 90, 'max': 125, 'tier': 'top'},
@@ -254,9 +227,7 @@ UNI_THRESHOLDS = [
     {'name': 'Актюбинский региональный университет', 'min': 60, 'max': 85, 'tier': 'regional'},
 ]
 
-
 def build_grant_context(ent_combo, ent_score):
-    """Build a context string with real grant threshold data for the AI prompt."""
     relevant_codes = ENT_COMBO_SPECIALTIES.get(ent_combo, [])
     if not relevant_codes:
         return ''
@@ -275,7 +246,6 @@ def build_grant_context(ent_combo, ent_score):
 
     score = int(ent_score)
 
-    # Build university-specific chances based on thresholds
     uni_lines = []
     for u in UNI_THRESHOLDS:
         if score >= u['max']:
@@ -314,11 +284,8 @@ STRICT RULES for calculating chances:
 """
     return context
 
-
 @app.route('/api/ai-chances', methods=['POST'])
 def ai_chances():
-    """Analyze test scores and predict university admission chances via Ollama."""
-    # Auth check
     auth_header = request.headers.get('Authorization', '')
     token = auth_header.replace('Bearer ', '') if auth_header.startswith('Bearer ') else None
     user = get_user_by_token(token)
@@ -332,7 +299,6 @@ def ai_chances():
     if not scores:
         return jsonify({'error': 'No scores provided'}), 400
 
-    # Build scores summary
     scores_parts = []
     ent_info = ''
     grant_context = ''
@@ -405,8 +371,6 @@ Be realistic with the percentages based on actual admission requirements. Sort b
 
         response_text = result.get('response', '')
         
-        # Try to extract JSON from response
-        # Sometimes LLM wraps JSON in markdown code blocks
         import re
         json_match = re.search(r'\{[\s\S]*\}', response_text)
         if json_match:
@@ -414,7 +378,6 @@ Be realistic with the percentages based on actual admission requirements. Sort b
         else:
             return jsonify({'error': 'Failed to parse AI response'}), 500
 
-        # Validate structure
         if 'kazakhstan' not in chances_data or 'worldwide' not in chances_data:
             return jsonify({'error': 'Invalid AI response structure'}), 500
 
@@ -430,20 +393,14 @@ Be realistic with the percentages based on actual admission requirements. Sort b
     except Exception as e:
         return jsonify({'error': f'AI analysis failed: {str(e)}'}), 500
 
-
-# === Serve Static Files ===
-
 @app.route('/')
 def serve_index():
     return send_from_directory(BASE_DIR, 'index.html')
-
 
 @app.route('/<path:path>')
 def serve_static(path):
     return send_from_directory(BASE_DIR, path)
 
-
-# === Start ===
 if __name__ == '__main__':
     init_db()
     print("=" * 50)

@@ -9,10 +9,10 @@
 </head>
 <body>
   <div class="app-layout">
-    <!-- Sidebar Overlay (mobile) -->
+    
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Sidebar -->
+    
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
         <div class="logo-icon">🎓</div>
@@ -50,9 +50,9 @@
       </nav>
     </aside>
 
-    <!-- Main Content -->
+    
     <main class="main-content">
-      <!-- Top Bar -->
+      
       <header class="top-bar">
         <div style="display:flex;align-items:center;gap:12px;">
           <button class="mobile-menu-toggle" id="menuToggle">
@@ -67,19 +67,19 @@
       </header>
 
       <div class="content-area">
-        <!-- Overview -->
+        
         <div class="results-overview fade-in">
           <h2>Overview</h2>
           <p>Add your academic scores and achievements to help UniMap match you with the best universities.</p>
         </div>
 
-        <!-- Test Scores -->
+        
         <div class="scores-section fade-in">
           <div class="scores-header">
             <h3>Test Scores</h3>
           </div>
 
-          <!-- Added scores list -->
+          
           <div id="testScoresList" class="test-scores-list">
             <div class="empty-state" id="scoresEmptyState">
               <i class="fas fa-clipboard-list" style="font-size:2rem;color:var(--text-muted);margin-bottom:10px;"></i>
@@ -87,13 +87,13 @@
             </div>
           </div>
 
-          <!-- Add test score button -->
+          
           <div class="add-achievement" id="addTestScoreBtn">
             <i class="fas fa-plus-circle"></i>
             <span>Add test score</span>
           </div>
 
-          <!-- Choose test type panel -->
+          
           <div class="inline-panel hidden" id="panelChooseTest">
             <div class="inline-panel-header">
               <span class="inline-panel-title">Выберите тест</span>
@@ -159,7 +159,7 @@
             </div>
           </div>
 
-          <!-- ЕНТ Subject Selection Panel -->
+          
           <div class="inline-panel hidden" id="panelEntSubjects">
             <div class="inline-panel-header">
               <button class="inline-panel-back" id="backFromEntSubjects"><i class="fas fa-arrow-left"></i></button>
@@ -248,7 +248,7 @@
             </div>
           </div>
 
-          <!-- Score input panel -->
+          
           <div class="inline-panel hidden" id="panelScoreInput">
             <div class="inline-panel-header">
               <button class="inline-panel-back" id="backFromScore"><i class="fas fa-arrow-left"></i></button>
@@ -256,7 +256,7 @@
               <button class="inline-panel-close" id="closeScoreInput"><i class="fas fa-times"></i></button>
             </div>
             <div class="inline-panel-body">
-              <!-- ЕНТ selected combo display -->
+              
               <div class="ent-selected-combo hidden" id="entSelectedCombo">
                 <i class="fas fa-check-circle" style="color:var(--accent)"></i>
                 <span id="entSelectedComboText"></span>
@@ -275,7 +275,7 @@
           </div>
         </div>
 
-        <!-- AI Admission Chances -->
+        
         <div class="ai-chances-section fade-in">
           <div class="ai-chances-header">
             <h2 data-i18n="ai_chances_title">🤖 AI Admission Prediction</h2>
@@ -287,27 +287,27 @@
             <span data-i18n="ai_chances_btn">Analyze Chances</span>
           </button>
 
-          <!-- Loading state -->
+          
           <div class="ai-loading hidden" id="aiLoading">
             <div class="ai-loading-spinner"></div>
             <p data-i18n="ai_chances_loading">AI is analyzing your scores...</p>
           </div>
 
-          <!-- Error message -->
+          
           <div class="ai-error hidden" id="aiError">
             <i class="fas fa-exclamation-triangle"></i>
             <span id="aiErrorText"></span>
           </div>
 
-          <!-- Results -->
+          
           <div class="ai-results hidden" id="aiResults">
-            <!-- Kazakhstan Block -->
+            
             <div class="ai-block">
               <h3 class="ai-block-title" data-i18n="ai_chances_kz">🇰🇿 Kazakhstan</h3>
               <div class="ai-uni-list" id="aiKzList"></div>
             </div>
 
-            <!-- World Wide Block -->
+            
             <div class="ai-block">
               <h3 class="ai-block-title" data-i18n="ai_chances_world">🌍 World Wide</h3>
               <div class="ai-uni-list" id="aiWorldList"></div>
@@ -320,7 +320,7 @@
           </div>
         </div>
 
-        <!-- Achievements & Awards -->
+        
         <div class="achievements-section fade-in">
           <div class="achievements-header">
             <h2>Achievements & Awards</h2>
@@ -381,7 +381,7 @@
       </div>
     </main>
 
-    <!-- Bottom Nav (Mobile) -->
+    
     <nav class="bottom-nav">
       <div class="bottom-nav-items">
         <button class="bottom-nav-item" onclick="location.href='dashboard.html'">
