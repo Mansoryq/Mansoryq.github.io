@@ -62,6 +62,7 @@
     </div>
   </div>
 
+  <script src="js/config.js"></script>
   <script src="js/i18n.js"></script>
   <script>
     // If already logged in, redirect
@@ -69,7 +70,7 @@
       const token = localStorage.getItem('unimap_token');
       if (token) {
         try {
-          const res = await fetch('/api/check-auth', {
+          const res = await fetch(API_BASE + '/api/check-auth', {
             headers: { 'Authorization': 'Bearer ' + token }
           });
           if (res.ok) { window.location.href = 'dashboard.html'; return; }
@@ -99,7 +100,7 @@
       btn.querySelector('.btn-loader').style.display = 'inline';
 
       try {
-        const res = await fetch('/api/login', {
+        const res = await fetch(API_BASE + '/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })

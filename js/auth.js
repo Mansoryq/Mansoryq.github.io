@@ -7,7 +7,7 @@
   }
 
   try {
-    const res = await fetch('/api/check-auth', {
+    const res = await fetch(API_BASE + '/api/check-auth', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
 
