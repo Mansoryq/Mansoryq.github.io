@@ -13,8 +13,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'unimap.db')
 
 app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
-app.secret_key = secrets.token_hex(32)
-CORS(app, supports_credentials=True)
+app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
+CORS(app, supports_credentials=True, origins=[
+    'https://mansoryq.github.io',
+    'http://localhost:8080',
+    'http://127.0.0.1:8080'
+])
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
@@ -32,6 +36,8 @@ def init_db():
             password_hash TEXT NOT NULL,
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
+    ''')
+    conn.execute('''
         CREATE TABLE IF NOT EXISTS sessions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
@@ -401,9 +407,11 @@ def serve_index():
 def serve_static(path):
     return send_from_directory(BASE_DIR, path)
 
+init_db()
+
 if __name__ == '__main__':
-    init_db()
+    port = int(os.environ.get('PORT', 8080))
     print("=" * 50)
-    print("  UniMap Server running at http://localhost:8080")
+    print(f"  UniMap Server running at http://localhost:{port}")
     print("=" * 50)
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
