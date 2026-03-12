@@ -62,19 +62,21 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/i18n.js"></script>
   <script>
     // If already logged in, redirect
     (async function() {
-      const token = localStorage.getItem('unimap_token');
-      if (token) {
-        try {
-          const res = await fetch(API_BASE + '/api/check-auth', {
-            headers: { 'Authorization': 'Bearer ' + token }
-          });
-          if (res.ok) { window.location.href = 'dashboard.html'; return; }
-        } catch(e) {}
+      const { data: { session } } = await _supabase.auth.getSession();
+      if (session) {
+        localStorage.setItem('unimap_user', JSON.stringify({
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata.name || session.user.email
+        }));
+        window.location.href = 'dashboard.html';
+        return;
       }
     })();
 
@@ -100,20 +102,20 @@
       btn.querySelector('.btn-loader').style.display = 'inline';
 
       try {
-        const res = await fetch(API_BASE + '/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+        const { data, error } = await _supabase.auth.signInWithPassword({
+          email: email,
+          password: password
         });
 
-        const data = await res.json();
-
-        if (res.ok && data.success) {
-          localStorage.setItem('unimap_token', data.token);
-          localStorage.setItem('unimap_user', JSON.stringify(data.user));
-          window.location.href = 'dashboard.html';
+        if (error) {
+          showMsg(error.message || 'Ошибка входа', true);
         } else {
-          showMsg(data.error || 'Ошибка входа', true);
+          localStorage.setItem('unimap_user', JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.user_metadata.name || data.user.email
+          }));
+          window.location.href = 'dashboard.html';
         }
       } catch (err) {
         showMsg('Ошибка сервера. Попробуйте позже.', true);

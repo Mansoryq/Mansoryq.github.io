@@ -1,6 +1,7 @@
-// API base URL configuration
-// After deploying backend to Render, replace with your Render URL
-// e.g. 'https://unimap-api.onrender.com'
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? ''  // local development — same origin
-  : 'https://unimap-api.onrender.com';  // production — Render backend
+// Supabase configuration
+// ИНСТРУКЦИЯ: замени значения ниже на свои из Supabase Dashboard → Settings → API
+const SUPABASE_URL = 'ВСТАВЬ_СЮДА_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'ВСТАВЬ_СЮДА_SUPABASE_ANON_KEY';
+
+const { createClient } = supabase;
+const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

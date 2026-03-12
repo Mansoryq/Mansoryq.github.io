@@ -56,6 +56,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/i18n.js"></script>
   <script>
@@ -90,21 +91,24 @@
       btn.querySelector('.btn-loader').style.display = 'inline';
 
       try {
-        const res = await fetch(API_BASE + '/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password })
+        const { data, error } = await _supabase.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: { name: name }
+          }
         });
 
-        const data = await res.json();
-
-        if (res.ok && data.success) {
-          localStorage.setItem('unimap_token', data.token);
-          localStorage.setItem('unimap_user', JSON.stringify(data.user));
+        if (error) {
+          showMsg(error.message || 'Ошибка регистрации', true);
+        } else if (data.user) {
+          localStorage.setItem('unimap_user', JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: name
+          }));
           showMsg('Регистрация успешна! Перенаправление...', false);
           setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
-        } else {
-          showMsg(data.error || 'Ошибка регистрации', true);
         }
       } catch (err) {
         showMsg('Ошибка сервера. Попробуйте позже.', true);
